@@ -2,29 +2,60 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Nox</title>
+  <title>Nox DVD Bounce</title>
   <style>
     body {
-      background-color: black;
+      margin: 0;
+      height: 100vh;
+      background: black;
+      overflow: hidden;
+    }
+    #logo {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
+      font-size: 3em;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
     }
-    img {
-      max-width: 300px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
-    h1 {
-      font-size: 4em;
-      margin-top: 20px;
+    #logo img {
+      max-width: 200px;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <img src="image.jpg" alt="Nox">
-  <h1>Nox</h1>
+  <div id="logo">
+    <img src="foto.jpg" alt="Foto simpatica">
+    <div>Nox</div>
+  </div>
+
+  <script>
+    const logo = document.getElementById("logo");
+    let x = 100, y = 100; // posizione iniziale
+    let dx = 2, dy = 2;   // velocità
+    const speed = 2;      // puoi aumentare la velocità
+
+    function moveLogo() {
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+      const rect = logo.getBoundingClientRect();
+
+      x += dx * speed;
+      y += dy * speed;
+
+      if (x + rect.width >= screenW || x <= 0) dx *= -1;
+      if (y + rect.height >= screenH || y <= 0) dy *= -1;
+
+      logo.style.left = x + "px";
+      logo.style.top = y + "px";
+
+      requestAnimationFrame(moveLogo);
+    }
+
+    moveLogo();
+  </script>
 </body>
 </html>
-
